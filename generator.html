@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Generator</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="background.css">
+<script src="app.js"></script>
+</head>
+
+<body onload="protect()">
+
+<div class="bg"></div><div class="overlay"></div>
+
+<div class="container">
+<h2>🔥 AI Hook Generator</h2>
+
+<select id="platform">
+<option>TikTok</option>
+<option>Instagram</option>
+<option>YouTube</option>
+</select>
+
+<select id="tone">
+<option>Curiosity</option>
+<option>Emotional</option>
+<option>Aggressive</option>
+<option>Luxury</option>
+<option>Dark</option>
+</select>
+
+<input id="topic" placeholder="Topic (money, dating, AI…)">
+
+<button onclick="run()">Generate</button>
+
+<div id="result" class="card" style="display:none;white-space:pre-line"></div>
+</div>
+
+<script>
+async function run(){
+  const topic=document.getElementById("topic").value;
+  if(!topic) return alert("Enter topic");
+
+  const result=document.getElementById("result");
+  result.style.display="block";
+  result.innerText="⏳ Thinking...";
+
+  try{
+    const text=await generateHook(
+      platform.value,
+      tone.value,
+      topic
+    );
+    result.innerText=text;
+  }catch(e){
+    result.innerText="❌ Daily limit reached. Upgrade.";
+  }
+}
+</script>
+
+</body>
+</html>
